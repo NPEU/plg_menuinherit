@@ -1,7 +1,7 @@
 <?php
 /**
  * @package     Joomla.Plugin
- * @subpackage  Content.InheritTemplate
+ * @subpackage  Content.MenuInherit
  *
  * @copyright   Copyright (C) NPEU 2019.
  * @license     MIT License; see LICENSE.md
@@ -10,12 +10,11 @@
 defined('_JEXEC') or die;
 
 /**
- * New menu items inherit their parent template assignment.
+ * New menu items inherit various settings from it's parent.
  */
-class plgContentInheritTemplate extends JPlugin
+class plgContentMenuInherit extends JPlugin
 {
     protected $autoloadLanguage = true;
-
 
     /**
      * The save event.
@@ -49,9 +48,29 @@ class plgContentInheritTemplate extends JPlugin
         $menu = $site->getMenu();
 
         $parent_item = $menu->getItem($item->parent_id);
-        $item->template_style_id = $parent_item->template_style_id;
+        
+        $config = array();
+        
+        if ($config['template'] == true) {
+            $this->inheritTemplate($item, $parent_item);
+        }
+
 
         return true;
     }
-
+    
+        /**
+     * The save event.
+     *
+     * @param   Object   $item          The item
+     * @param   Object   $parent_item   The parent
+     *
+     * @return  boolean
+     */
+    protected function inheritTemplate(&$item, &$parent_item) {
+        
+        $item->template_style_id = $parent_item->template_style_id;
+        
+        return true;
+    }
 }
