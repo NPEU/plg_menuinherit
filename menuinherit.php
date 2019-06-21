@@ -38,28 +38,26 @@ class plgContentMenuInherit extends JPlugin
             return;
         }
 
-        // Check that a template_style hasn't already been specified:
-        if (!empty($item->template_style_id)) {
-            return;
-        }
 
         // Get the parent menu item:
         $site = new JApplicationSite;
         $menu = $site->getMenu();
 
         $parent_item = $menu->getItem($item->parent_id);
-        
-        $config = array();
-        
-        if ($config['template'] == true) {
+
+        $params = new JRegistry($this->params);
+
+        // Check the want to inherit templates and that a template_style hasn't already been
+        // specified:
+        if ($params->get('inherit_templates') == 1 && !empty($item->template_style_id)) {
             $this->inheritTemplate($item, $parent_item);
         }
 
 
         return true;
     }
-    
-        /**
+
+    /**
      * The save event.
      *
      * @param   Object   $item          The item
@@ -68,9 +66,9 @@ class plgContentMenuInherit extends JPlugin
      * @return  boolean
      */
     protected function inheritTemplate(&$item, &$parent_item) {
-        
+
         $item->template_style_id = $parent_item->template_style_id;
-        
+
         return true;
     }
 }

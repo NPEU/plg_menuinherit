@@ -26,36 +26,59 @@
     </files>
     
     <config>
-		<fields name="params">
-			<fieldset name="basic">
-				<field
-					name="check_categories"
-					type="radio"
-					label="PLG_CONTENT_JOOMLA_FIELD_CHECK_CATEGORIES_LABEL"
-					description="PLG_CONTENT_JOOMLA_FIELD_CHECK_CATEGORIES_DESC"
-					class="btn-group btn-group-yesno"
-					default="1"
-					filter="integer"
-					>
-					<option value="1">JYES</option>
-					<option value="0">JNO</option>
-				</field>
-
-				<field 
-					name="email_new_fe"
-					type="radio"
-					label="PLG_CONTENT_JOOMLA_FIELD_EMAIL_NEW_FE_LABEL"
-					description="PLG_CONTENT_JOOMLA_FIELD_EMAIL_NEW_FE_DESC"
-					class="btn-group btn-group-yesno"
-					default="1"
-					filter="integer"
-					>
-					<option value="1">JYES</option>
-					<option value="0">JNO</option>
-				</field>
-			</fieldset>
-		</fields>
-	</config>
+        <fields name="params">
+            <fieldset name="basic">
+                <field
+                    name="inherit_templates"
+                    type="radio"
+                    label="PLG_CONTENT_MENUINHERIT_TEMPLATE_LABEL"
+                    description="PLG_CONTENT_MENUINHERIT_TEMPLATE_DESC"
+                    class="btn-group btn-group-yesno"
+                    default="1"
+                    filter="integer"
+                >
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+                <field
+                    name="inherit_modules"
+                    type="radio"
+                    label="PLG_CONTENT_MENUINHERIT_MODULES_LABEL"
+                    description="PLG_CONTENT_MENUINHERIT_MODULES_DESC"
+                    class="btn-group btn-group-yesno"
+                    default="1"
+                    filter="integer"
+                >
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+                <field
+                    name="inherit_access"
+                    type="radio"
+                    label="PLG_CONTENT_MENUINHERIT_ACCESS_LABEL"
+                    description="PLG_CONTENT_MENUINHERIT_ACCESS_DESC"
+                    class="btn-group btn-group-yesno"
+                    default="1"
+                    filter="integer"
+                >
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+                <field
+                    name="inherit_lang"
+                    type="radio"
+                    label="PLG_CONTENT_MENUINHERIT_LANG_LABEL"
+                    description="PLG_CONTENT_MENUINHERIT_LANG_DESC"
+                    class="btn-group btn-group-yesno"
+                    default="1"
+                    filter="integer"
+                >
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+            </fieldset>
+        </fields>
+    </config>
 
 
 </extension>
