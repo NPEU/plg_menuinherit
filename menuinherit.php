@@ -33,15 +33,15 @@ class plgContentMenuInherit extends JPlugin
             return;
         }
 
-        // Only run for new items:
-        if (!$isNew) {
+        // Only run for new items where there is a parent to inherit from:
+        if (!$isNew || empty($item->parent_id)) {
             return;
         }
-
 
         // Get the parent menu item:
         $site = new JApplicationSite;
         $menu = $site->getMenu();
+
 
         $parent_item = $menu->getItem($item->parent_id);
 
@@ -49,10 +49,9 @@ class plgContentMenuInherit extends JPlugin
 
         // Check the want to inherit templates and that a template_style hasn't already been
         // specified:
-        if ($params->get('inherit_templates') == 1 && !empty($item->template_style_id)) {
+        if ($params->get('inherit_templates') == 1 && empty($item->template_style_id)) {
             $this->inheritTemplate($item, $parent_item);
         }
-
 
         return true;
     }
