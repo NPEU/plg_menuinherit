@@ -27,24 +27,15 @@
     
     <config>
         <fields name="params">
-            <fieldset name="basic">
+            <fieldset
+                name="basic"
+                addfieldpath="administrator/components/com_modules/models/fields"
+            >
                 <field
                     name="inherit_templates"
                     type="radio"
                     label="PLG_CONTENT_MENUINHERIT_TEMPLATE_LABEL"
                     description="PLG_CONTENT_MENUINHERIT_TEMPLATE_DESC"
-                    class="btn-group btn-group-yesno"
-                    default="1"
-                    filter="integer"
-                >
-                    <option value="1">JYES</option>
-                    <option value="0">JNO</option>
-                </field>
-                <field
-                    name="inherit_modules"
-                    type="radio"
-                    label="PLG_CONTENT_MENUINHERIT_MODULES_LABEL"
-                    description="PLG_CONTENT_MENUINHERIT_MODULES_DESC"
                     class="btn-group btn-group-yesno"
                     default="1"
                     filter="integer"
@@ -75,6 +66,38 @@
                 >
                     <option value="1">JYES</option>
                     <option value="0">JNO</option>
+                </field>
+                <field
+                    name="inherit_modules"
+                    type="radio"
+                    label="PLG_CONTENT_MENUINHERIT_MODULES_LABEL"
+                    description="PLG_CONTENT_MENUINHERIT_MODULES_DESC"
+                    class="btn-group btn-group-yesno"
+                    default="1"
+                    filter="integer"
+                >
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+                <field
+                    name="inherit_module_positions"
+                    type="subform"
+                    label="PLG_CONTENT_MENUINHERIT_MODULE_POSTIONS_LABEL"
+                    description="PLG_CONTENT_MENUINHERIT_MODULE_POSTIONS_DESC"
+                    multiple="true"
+                >
+                    <form>
+                        <field 
+                            name="position" 
+                            type="modulesposition"
+                            label="COM_MODULES_FIELD_POSITION_LABEL"
+                            description="COM_MODULES_FIELD_POSITION_DESC"
+                            default=""
+                            maxlength="50"
+                        >
+                            <option value="">COM_MODULES_OPTION_SELECT_POSITION</option>
+                        </field>
+                    </form>
                 </field>
             </fieldset>
         </fields>

@@ -9,6 +9,17 @@
 
 defined('_JEXEC') or die;
 
+$lang = JFactory::getLanguage();
+$extension = 'com_modules';
+$base_dir = JPATH_ADMINISTRATOR;
+$language_tag = 'en-GB';
+$reload = true;
+$lang->load($extension, $base_dir, $language_tag, $reload);
+
+JHtml::_('formbehavior.chosen', '#jform_position', null, array('disable_search_threshold' => 0 ));
+JHtml::_('formbehavior.chosen', 'select');
+
+
 /**
  * New menu items inherit various settings from it's parent.
  */
@@ -34,7 +45,7 @@ class plgContentMenuInherit extends JPlugin
         }
 
         // Only run for new items where there is a parent to inherit from:
-        if (!$isNew || empty($item->parent_id)) {
+        if (!$isNew || $item->parent_id == 1) {
             return;
         }
 
@@ -82,27 +93,34 @@ class plgContentMenuInherit extends JPlugin
         }
 
         // Only run for new items where there is a parent to inherit from:
-        if (!$isNew || empty($item->parent_id)) {
+        if (!$isNew || $item->parent_id == 1) {
             return;
         }
 
         $params = new JRegistry($this->params);
+        $inherit_module_positions = array();
+        foreach ($params->get('inherit_module_positions') as $position) {
+            $inherit_module_positions[] = $position['position'];
+        }
 
         // Check the want to inherit modules: (needs to be here so we have the new menuitem id)
         if ($params->get('inherit_modules') == 1) {
             $db = JFactory::getDBO();
 
             $query = '
-                SELECT moduleid
+                SELECT moduleid, m.position
                 FROM #__modules_menu
+                JOIN #__modules m ON moduleid = m.id
                 WHERE menuid = ' . $item->parent_id;
 
             $db->setQuery($query);
-            $module_ids = $db->loadColumn();
-
+            $modules = $db->loadAssocList();
             $query = 'INSERT INTO #__modules_menu (moduleid,menuid) VALUES ';
-            foreach ($module_ids as $module_id) {
-                $query .= '(' . $module_id . ',' . $item->id . '),';
+            foreach ($modules as $module) {
+                if (!in_array($module['position'], $inherit_module_positions)) {
+                    continue;
+                }
+                $query .= '(' . $module['moduleid'] . ',' . $item->id . '),';
             }
             $query = trim($query, ',');
             $db->setQuery($query);
