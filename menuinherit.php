@@ -44,8 +44,18 @@ class plgContentMenuInherit extends JPlugin
             return;
         }
 
-        // Only run for new items where there is a parent to inherit from:
-        if (!$isNew || $item->parent_id == 1) {
+        // Don't run if menu inheritance is disabled for this menu item:
+        $item_params = new JRegistry($item->params);
+        $disable_inheritance = (bool) $item_params->get('disable_inheritance', false);
+        if ($disable_inheritance == true) {
+            return;
+        }
+
+        // Only run for NEW items where there is a parent to inherit from:
+        //if (!$isNew || $item->parent_id == 1) {
+
+        // Only run for items where there is a parent to inherit from:
+        if ($item->parent_id == 1) {
             return;
         }
 
@@ -92,18 +102,35 @@ class plgContentMenuInherit extends JPlugin
             return;
         }
 
-        // Only run for new items where there is a parent to inherit from:
-        if (!$isNew || $item->parent_id == 1) {
+        // Don't run if menu inheritance is disabled for this menu item:
+        $item_params = new JRegistry($item->params);
+        $disable_inheritance = (bool) $item_params->get('disable_inheritance', false);
+        if ($disable_inheritance == true) {
             return;
         }
 
+        // Only run for NEW items where there is a parent to inherit from:
+        //if (!$isNew || $item->parent_id == 1) {
+
+        // Only run for items where there is a parent to inherit from:
+        if ($item->parent_id == 1) {
+            return;
+        }
+
+
         $params = new JRegistry($this->params);
-        $inherit_module_positions = array();
-        foreach ($params->get('inherit_module_positions') as $position) {
+        $inherit_module_positions = $params->get('inherit_module_positions', false);
+
+        // If there are no positions specified, we need go no further:
+        if (!$inherit_module_positions) {
+            return;
+        }
+
+        foreach ($inherit_module_positions as $position) {
             $inherit_module_positions[] = $position['position'];
         }
 
-        // Check the want to inherit modules: (needs to be here so we have the new menuitem id)
+        // Check the want to inherit modules: (needs to AfterSave as we need the new menuitem id)
         if ($params->get('inherit_modules') == 1) {
             $db = JFactory::getDBO();
 
@@ -115,7 +142,7 @@ class plgContentMenuInherit extends JPlugin
 
             $db->setQuery($query);
             $modules = $db->loadAssocList();
-            $query = 'INSERT INTO #__modules_menu (moduleid,menuid) VALUES ';
+            $query = 'INSERT IGNORE INTO #__modules_menu (moduleid,menuid) VALUES ';
             foreach ($modules as $module) {
                 if (!in_array($module['position'], $inherit_module_positions)) {
                     continue;
@@ -127,5 +154,28 @@ class plgContentMenuInherit extends JPlugin
             $db->loadResult();
         }
 	}
+
+    /**
+     * Prepare form and add my field.
+     *
+     * @param   JForm  $form  The form to be altered.
+     * @param   mixed  $data  The associated data for the form.
+     *
+     * @return  boolean
+     *
+     * @since   <your version>
+     */
+    public function onContentPrepareForm($form, $data)
+    {
+        $app    = JFactory::getApplication();
+        $option = $app->input->get('option');
+
+        if ($app->isClient('administrator') && $option == 'com_menus') {
+            JForm::addFormPath(__DIR__ . '/forms');
+            $form->loadFile('menu_item', false);
+        }
+
+        return true;
+    }
 
 }

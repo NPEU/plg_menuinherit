@@ -26,10 +26,11 @@
     </files>
     
     <config>
-        <fields name="params">
+        <fields
+            name="params"
+        >
             <fieldset
                 name="basic"
-                addfieldpath="administrator/components/com_modules/models/fields"
             >
                 <field
                     name="inherit_templates"
@@ -89,7 +90,7 @@
                     <form>
                         <field 
                             name="position" 
-                            type="modulesposition"
+                            type="moduleposition"
                             label="COM_MODULES_FIELD_POSITION_LABEL"
                             description="COM_MODULES_FIELD_POSITION_DESC"
                             default=""

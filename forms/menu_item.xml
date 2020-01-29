@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+    <fields name="params">
+        <fieldset
+            name="menu-inheritance"
+            label="PLG_CONTENT_MENUINHERIT_FIELDSET_MENU_INHERITANCE_LABEL"
+        >
+            <field
+                name="disable_inheritance"
+                type="radio"
+                label="PLG_CONTENT_MENUINHERIT_DISABLE_MENU_INHERITANCE_LABEL"
+                description="PLG_CONTENT_MENUINHERIT_DISABLE_MENU_INHERITANCE_DESC"
+                default="0"
+                class="btn-group btn-group-yesno"
+            >
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
+        </fieldset>
+    </fields>
+</form>
