@@ -130,7 +130,8 @@ class plgContentMenuInherit extends JPlugin
             $inherit_module_positions[] = $position['position'];
         }
 
-        // Check the want to inherit modules: (needs to AfterSave as we need the new menuitem id)
+        // Check that we want to inherit modules:
+        // (needs to be AfterSave as we need the new menuitem id)
         if ($params->get('inherit_modules') == 1) {
             $db = JFactory::getDBO();
 
@@ -142,6 +143,8 @@ class plgContentMenuInherit extends JPlugin
 
             $db->setQuery($query);
             $modules = $db->loadAssocList();
+            
+            
             $query = 'INSERT IGNORE INTO #__modules_menu (moduleid,menuid) VALUES ';
             foreach ($modules as $module) {
                 if (!in_array($module['position'], $inherit_module_positions)) {
