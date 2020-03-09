@@ -143,8 +143,11 @@ class plgContentMenuInherit extends JPlugin
 
             $db->setQuery($query);
             $modules = $db->loadAssocList();
-            
-            
+
+            if (empty($modules)) {
+                return;
+            }
+
             $query = 'INSERT IGNORE INTO #__modules_menu (moduleid,menuid) VALUES ';
             foreach ($modules as $module) {
                 if (!in_array($module['position'], $inherit_module_positions)) {
@@ -153,6 +156,7 @@ class plgContentMenuInherit extends JPlugin
                 $query .= '(' . $module['moduleid'] . ',' . $item->id . '),';
             }
             $query = trim($query, ',');
+
             $db->setQuery($query);
             $db->loadResult();
         }
