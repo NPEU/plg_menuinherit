@@ -158,7 +158,7 @@ class plgContentMenuInherit extends JPlugin
             $query = trim($query, ',');
 
             $db->setQuery($query);
-            $db->loadResult();
+            $db->execute();
         }
 	}
 
