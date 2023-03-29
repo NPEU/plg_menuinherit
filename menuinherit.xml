@@ -10,7 +10,7 @@
     <license>MIT License; see LICENSE.md</license>
 
     <!--  The version string is recorded in the components table -->
-    <version>1.2.2</version>
+    <version>1.2.3</version>
     <!-- The description is optional and defaults to the name -->
     <description>PLG_CONTENT_MENUINHERIT_XML_DESCRIPTION</description>
 
@@ -18,14 +18,14 @@
         <!-- Note: No spaces or linebreaks allowed between the server tags -->
         <server type="extension" name="NPEU: plg_menuinherit Update Site">https://raw.githubusercontent.com/NPEU/plg_menuinherit/master/update-manifest.xml</server>
     </updateservers>
-    
+
     <files>
         <filename plugin="menuinherit">menuinherit.php</filename>
         <filename>index.html</filename>
         <folder>forms</folder>
         <folder>language</folder>
     </files>
-    
+
     <config>
         <fields
             name="params"
@@ -89,8 +89,8 @@
                     multiple="true"
                 >
                     <form>
-                        <field 
-                            name="position" 
+                        <field
+                            name="position"
                             type="moduleposition"
                             label="COM_MODULES_FIELD_POSITION_LABEL"
                             description="COM_MODULES_FIELD_POSITION_DESC"
