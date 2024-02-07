@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="plugin" group="content" version="3.2.0" method="upgrade">
+<extension type="plugin" group="content" method="upgrade">
 
     <name>PLG_CONTENT_MENUINHERIT</name>
     <author>Andy Kirk</author>
     <authorEmail>andy.kirk@npeu.ox.ac.uk</authorEmail>
     <authorUrl>https://www.npeu.ox.ac.uk</authorUrl>
-    <creationDate>May 2019</creationDate>
-    <copyright>(C) NPEU 2019</copyright>
+    <creationDate>February 2024</creationDate>
+    <copyright>(C) NPEU 2024</copyright>
     <license>MIT License; see LICENSE.md</license>
 
     <!--  The version string is recorded in the components table -->
@@ -16,15 +16,17 @@
 
     <updateservers>
         <!-- Note: No spaces or linebreaks allowed between the server tags -->
-        <server type="extension" name="NPEU: plg_menuinherit Update Site">https://raw.githubusercontent.com/NPEU/plg_menuinherit/master/update-manifest.xml</server>
+        <server type="extension" name="NPEU: plg_menuinherit Update Site">https://raw.githubusercontent.com/NPEU/plg_menuinherit/main/update-manifest.xml</server>
     </updateservers>
 
+    <namespace path="src">NPEU\Plugin\Content\MenuInherit</namespace>
     <files>
-        <filename plugin="menuinherit">menuinherit.php</filename>
-        <filename>index.html</filename>
+        <folder plugin="menuinherit">src</folder>
         <folder>forms</folder>
         <folder>language</folder>
+        <folder>services</folder>
     </files>
+
 
     <config>
         <fields
@@ -32,6 +34,7 @@
         >
             <fieldset
                 name="basic"
+                addfieldprefix="Joomla\Component\Modules\Administrator\Field"
             >
                 <field
                     name="inherit_templates"
@@ -91,9 +94,8 @@
                     <form>
                         <field
                             name="position"
-                            type="moduleposition"
+                            type="ModulesPositionedit"
                             label="COM_MODULES_FIELD_POSITION_LABEL"
-                            description="COM_MODULES_FIELD_POSITION_DESC"
                             default=""
                             maxlength="50"
                         >
@@ -104,6 +106,5 @@
             </fieldset>
         </fields>
     </config>
-
 
 </extension>
