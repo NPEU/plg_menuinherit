@@ -14,6 +14,8 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\FormHelper;
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\Component\Modules\Administrator\Service\HTML\Modules;
 use Joomla\Event\Event;
@@ -237,7 +239,7 @@ class MenuInherit extends CMSPlugin implements SubscriberInterface
         $form    = $args[0];
         $data    = $args[1];
 
-        if (!($form instanceof \Joomla\CMS\Form\Form)) {
+        if ($form && !($form instanceof \Joomla\CMS\Form\Form)) {
             throw new GenericDataException(Text::_('JERROR_NOT_A_FORM'), 500);
             return;
         }
